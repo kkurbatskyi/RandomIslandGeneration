@@ -35,20 +35,31 @@ class DiamondSquare(height: Int, width: Int) {
         [---------]
         [v-------v]
      */
-    fun generate(beginningX: Int, height: Int, beginningY: Int, width: Int){
+    fun generate(beginningX: Int, height: Int, beginningY: Int, width: Int, randRange: Point){
         if(height <= beginningX || width <=beginningY)return
-        map[(height - beginningX) / 2][beginningY] = Tile(((map[beginningX][beginningY].elevation + map[height][beginningY].elevation) / 2)
-                                                        + Random.nextInt(randomRange.x, randomRange.y))
-        map[(height - beginningX) / 2][width] = Tile(((map[beginningX][width].elevation + map[height][width].elevation) / 2)
-                                                        + Random.nextInt(randomRange.x, randomRange.y))
-        map[beginningX][(width - beginningY) / 2] = Tile(((map[beginningX][beginningY].elevation + map[beginningX][width].elevation) / 2)
-                                                        + Random.nextInt(randomRange.x, randomRange.y))
-        map[height][(width - beginningY) / 2] = Tile(((map[height][beginningY].elevation + map[height][width].elevation) / 2)
-                                                        + Random.nextInt(randomRange.x, randomRange.y))
-        generate(beginningX, (height - beginningX) / 2, beginningY, (width - beginningY) / 2)
-        generate((height - beginningX) / 2, height, beginningY, (width - beginningY) / 2)
-        generate(beginningX, (height - beginningX) / 2, (width - beginningY) / 2, width)
-        generate(beginningX, (height - beginningX) / 2, beginningY, (width - beginningY) / 2)
+        map[(height - beginningX) / 2][(width - beginningY) / 2] = Tile((map[beginningX][beginningY].elevation
+                                                                 + map[height][width].elevation
+                                                                 + map[beginningX][width].elevation
+                                                                 + map[height][beginningY].elevation) / 4
+                                                                 + Random.nextInt(randRange.x, randRange.y))
+        val medianElevation = map[(height - beginningX) / 2][(width - beginningY) / 2].elevation;
+
+        map[(height - beginningX) / 2][beginningY] = Tile((map[beginningX][beginningY].elevation + map[height][beginningY].elevation + medianElevation) / 3
+                                                        + Random.nextInt(randRange.x, randRange.y))
+        map[(height - beginningX) / 2][width] = Tile(((map[beginningX][width].elevation + map[height][width].elevation) + medianElevation) / 3
+                                                        + Random.nextInt(randRange.x, randRange.y))
+        map[beginningX][(width - beginningY) / 2] = Tile(((map[beginningX][beginningY].elevation + map[beginningX][width].elevation) + medianElevation) / 3
+                                                        + Random.nextInt(randRange.x, randRange.y))
+        map[height][(width - beginningY) / 2] = Tile(((map[height][beginningY].elevation + map[height][width].elevation) + medianElevation) / 3
+                                                        + Random.nextInt(randRange.x, randRange.y))
+        generate(beginningX, (height - beginningX) / 2, beginningY, (width - beginningY) / 2,
+            Point((randRange.x * 0.7).toInt(), (randRange.y * 0.7).toInt()))
+        generate((height - beginningX) / 2, height, beginningY, (width - beginningY) / 2,
+            Point((randRange.x * 0.7).toInt(), (randRange.y * 0.7).toInt()))
+        generate(beginningX, (height - beginningX) / 2, (width - beginningY) / 2, width,
+            Point((randRange.x * 0.7).toInt(), (randRange.y * 0.7).toInt()))
+        generate(beginningX, (height - beginningX) / 2, beginningY, (width - beginningY) / 2,
+            Point((randRange.x * 0.7).toInt(), (randRange.y * 0.7).toInt()))
     }
 
     //add snow, mountain, coastal waters, deep waters, jungle, plain, beach, cove(?)
