@@ -1,13 +1,13 @@
 import javax.swing.JFrame
 
 class Main: JFrame() {
-    private val WIDTH: Int = 1026
-    private val HEIGHT: Int = 1026
+    private val WIDTH: Int = 513
+    private val HEIGHT: Int = 513
     var visual: Visual
     init{
         isResizable = true
         title = "Island"
-        visual = Visual()
+        visual = Visual(WIDTH, HEIGHT)
         contentPane = visual
     }
 
