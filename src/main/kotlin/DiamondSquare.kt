@@ -82,7 +82,13 @@ class DiamondSquare(_height: Int, _width: Int) {
     }
 
     private fun generate(startX: Int, startY: Int, endX: Int, endY: Int) {
-        
+        var middle: Int
+        //first: square, then diamond
+        for (i in 0..height){
+            for(j in 0..width){
+                //reference: https://medium.com/@nickobrien/diamond-square-algorithm-explanation-and-c-implementation-5efa891e486f
+            }
+        }
     }
 
 
